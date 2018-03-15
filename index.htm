@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Read File (via User Input selection)</title>
+</head>
+<body onload="checkFileAPI();">
+    <div id="container">    
+        <input type="file" onchange='readText(this)' />
+        <br/>
+        <hr/>
+        word length: <input id="WordLength" type="text" /><br>
+        <h3><button onclick="displayContents()">Generate Password</button></h3><img id="wait" />
+        <div id="main"></div>
+        <script src="read-input-file.js"></script>
+    </div>
+</body>
+</html>
