@@ -1,4 +1,4 @@
-pwgen
+%#pwgen
 Formatted Password Generator
 
 [x] User uploads wordlist file (one word per line)<br>
