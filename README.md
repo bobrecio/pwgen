@@ -1,4 +1,4 @@
-# pwgen
+pwgen
 Formatted Password Generator
 
 [x] User uploads wordlist file (one word per line)<br>
@@ -20,7 +20,9 @@ Formatted Password Generator
 |s|symbol|$1s|single symbol|
 |x|any characters|%14x|14 random characters of any type|
 
-Example:
+NOTE: To insert a '%' in the password, use '%%'.
+
+Usage example:
 > %5W.%4d%s%5x (1 5-letter title-case word + dot + 4 digits + 1 symbol + 5 random characters)
 
 Possible result:
