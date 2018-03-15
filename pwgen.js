@@ -1,6 +1,6 @@
-    var reader; //GLOBAL File Reader object for demo purpose only
-    var fileText;
-    var pwFormat = "%5w.%5w@%3d.%3d"; //  = words.lives@558.742
+var reader; //GLOBAL File Reader object for demo purpose only
+var fileText;
+var pwFormat = "%3W!%3d%%%3a"; //  = Net!123%vbx
 
 //TODO:
 /*
@@ -11,10 +11,12 @@
 
 N = number of characters
 
-w = word
-d = digit
-a/A = alpha
-s = symbol
+w/W = lower/UPPER word
+T = title case word from wordlist file
+a/A = lower/uppper letter
+M = random case letter
+s = random symbol
+
 
 */
 
