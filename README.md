@@ -6,7 +6,7 @@ Formatted Password Generator
 [x] Filter words with set number of characters<br>
 [x] Select a single word from the results<br>
 [ ] Display the number of words in results (pool)<br>
-[ ] Format a single password segment using [delimiter][number of digits/chars][type of segment]: %15d = %15 digits<br>
+[ ] Format a single password segment using [delimiter][number of digits/chars][type of segment]: %15d = 15 digits<br>
 [ ] Parse a password formatting string and produce a password<br>
 
 |char|type|example|description|
