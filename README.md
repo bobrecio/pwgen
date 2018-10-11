@@ -8,6 +8,7 @@ Formatted Password Generator
 [ ] Display the number of words in results (pool)<br>
 [ ] Format a single password segment using [delimiter][number of digits/chars][type of segment]: %15d = 15 digits<br>
 [ ] Parse a password formatting string and produce a password<br>
+[_] Test new password strength, display strength rating.
 
 |char|type|example|description|
 |:---:|:------------:|:-----:|:---------------------------|
