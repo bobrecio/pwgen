@@ -18,7 +18,7 @@ Formatted Password Generator
 |d|digits|%14d|15 random digits|
 |w|word from uploaded file|%3w|3-letter word from uploaded file|
 |W|word with title-case|%w|one word with first letter capitalized|
-|s|symbol|%1s|single symbol|
+|s|symbol|%1s|single symbol/special character|
 |x|any characters|%14x|14 random characters of any type (%,a,A,M,d,w,W,s,x)|
 
 NOTE: To insert a '%' in the password, use '%%'.
