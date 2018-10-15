@@ -7,7 +7,7 @@
 5. Generate multiple passwords based on format.
 6. Run each password through strength meter.
 7. Display list passwords with strength score. (Score is hyperlink to strength details - "strength-meter")
-
+---
 ### Functions ###
   * mkWordList(file) - generate the wordlist_array[]
     * Remove top 5(?) occuring words. (Show these in showFilesStats().)
@@ -20,7 +20,7 @@
   * getChar(N) - returns random string of characters - length of N. (N=null will be random length.)
   * showFileStats() - Show stats of the word file - total/unique words, longest/shortest, top 5 words removed.
   * pwlist[{"pwd":"","strength":""},{...},...]
-
+---
 ### Form ###
 * Word Source: upload (text box/upload), URL (textbox), select (dropdown)
 * Display File Stats
@@ -31,7 +31,7 @@
 * [Generate Passwords]
 * List of choices: Password, Strength (Raw), Copy Icon
 * [Redo] [Reset]
-
+---
 |char|type|example|description|
 |:---:|:------------:|:-----:|:---------------------------|
 |%|delimiter|%2x|
@@ -45,11 +45,11 @@
 |x|any characters|%14x|14 random characters of any type (%,a,A,M,d,w,W,s,x)|
 
 NOTE: To insert a '%' in the password, use '%%'.
-
+---
 __ Usage example __
 > %5W.%4d%s%5x (1 5-letter title-case word + dot + 4 digits + 1 symbol + 5 random characters)
 
 __ Result (possibly) __
 > Hello.1234$eH&12
-
+---
 Test your passwords at http://www.passwordmeter.com/
