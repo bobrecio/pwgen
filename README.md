@@ -9,18 +9,18 @@
 7. Display list passwords with strength score. (Score is hyperlink to strength details - "strength-meter")
 ---
 ### Functions ###
-  * mkWordList(file) - generate the wordlist_array[]
-    * Remove top 5(?) occuring words. (Show these in showFilesStats().)
+  * `mkWordList(file)` - generate the wordlist_array[]
+    * Remove top 5(?) occuring words. (Show these in `showFilesStats()`.)
     * Remove single letter words.
     * Remove numbers and words with numbers.
-  * buildPW(format) - concatenates the segments of the password by calling functions to create each segment based on "format".
-  * parseFormat(string) - returns array of format. %2W@%4d ==> ["2W","@","4d"]
-  * randomFormat - returns a random password format - for i= 1 to math.random(8) {% + [1234567890] + [aAMdwWsx]}
-  * getWordOfLen(N) - returns a random word from the list with length "N". (N=null will be random length.) 
-  * getNum(N) - selects a number with the N-length. (N=null will be random length.)
-  * getChar(N) - returns random string of characters - length of N. (N=null will be random length.)
-  * showFileStats() - Show stats of the word file - total/unique words, longest/shortest, top 5 words removed.
-  * pwlist[{"pwd":"","strength":""},{...},...]
+  * `buildPW(format)` - concatenates the segments of the password by calling functions to create each segment based on "format".
+  * `parseFormat(string)` - returns array of format. %2W@%4d ==> ["2W","@","4d"]
+  * `randomFormat` - returns a random password format - for i= 1 to math.random(8) {% + [1234567890] + [aAMdwWsx]}
+  * `getWordOfLen(N)` - returns a random word from the list with length "N".
+  * `getNum(N)` - selects a number with the N-length.
+  * `getChar(N)` - returns random string of characters - length of N.
+  * `showFileStats()` - Show stats of the word file - total/unique words, longest/shortest, top 5 words removed.
+  * `pwlist[{"pwd":"","strength":""},{...},...]`
 
 Notes:
   * If format=NULL, random format will be returned.
