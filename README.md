@@ -4,9 +4,8 @@ __Formatted Password Generator__
 
 Steps:
 1. Go to PWGen site.
-2. Configure formatting
-3. Select word source (Upload, URL, existing word list)
-4. Parse uploaded/URL word sources to create a list - one word per line.
+2. Select word source (Upload file, paste URL, select existing list)
+2. Set the password format. (segment editor / paste format string)
 5. Generate multiple passwords based on format.
 6. Run each password through strength meter.
 7. Display list passwords with strength score. (Score is hyperlink to strength details - "strength-meter")
@@ -16,20 +15,27 @@ Functions:
     * Remove top 5(?) occuring words. (Show these in showFilesStats().)
     * Remove single letter words.
     * Remove numbers and words with numbers.
-  * buildPW(format) - concatenates the segments of the password by calling functions to create each segment based on "format".
+  * buildPW(format) - concatenates the segments of the password by calling functions to create each segment based on "format". (format=null will generate a random password.
+  * randomFormat - returns a random password format
   * getWordOfLen(N) - returns a random word from the list with length "N". (N=null will be random length.) 
   * getNum(N) - selects a number with the N-length. (N=null will be random length.)
   * getChar(N) - returns random string of characters - length of N. (N=null will be random length.)
   * showFileStats() - Show stats of the word file - total/unique words, longest/shortest, top 5 words removed.
+  * pwlist[{"pwd":"","strength":""},{...},...]
 
 Form:
 * Word Source: upload (text box/upload), URL (textbox), select (dropdown)
+* Display File Stats
+* Build Segments: Type (dropdown), Length
+* Add another segment button
+* Display password format
+* Generate Password Choices
+* List of choices: Password, Strength, Copy Icon
+* [Redo] [Reset]
 
 
-
-[ ] Format a single password segment using [delimiter][number of digits/chars][type of segment]: %15d = 15 digits<br>
-[ ] Parse a password formatting string and produce a password<br>
 [ ] Test new password strength, display strength rating.
+[ ] Show "raw" score password strength; not 0-100 score.
 
 |char|type|example|description|
 |:---:|:------------:|:-----:|:---------------------------|
