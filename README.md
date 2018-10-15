@@ -21,9 +21,10 @@
   * getChar(N) - returns random string of characters - length of N. (N=null will be random length.)
   * showFileStats() - Show stats of the word file - total/unique words, longest/shortest, top 5 words removed.
   * pwlist[{"pwd":"","strength":""},{...},...]
+
 Notes:
-* If format=NULL, random format will be returned.
-* If N=NULL, random length will be returned.
+  * If format=NULL, random format will be returned.
+  * If N=NULL, random length will be returned.
 
 ---
 ### Form ###
@@ -42,8 +43,9 @@ Notes:
 * [Generate Passwords]
 * List of choices: Password, Strength (Raw), Copy Icon
 * [Redo] [Reset]
+
 Notes:
-* Add Segment creates properly formatted segments - %NX
+  * Add Segment creates properly formatted segments - %NX
 ---
 |char|type|example|description|
 |:---:|:------------:|:-----:|:---------------------------|
@@ -60,7 +62,7 @@ Notes:
 |x|any characters|%14x|14 random characters of any type (a,A,M,d,w,W,s,x)|
 
 Notes: 
-* If number is missing or 0, random length is used.
+  * If number is missing or 0, random length is used.
 ---
 __ Usage example __
 > %5T%\\\.%4d%s%5x (1 5-letter title-case word + dot + 4 digits + 1 symbol + 5 random characters)
