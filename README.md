@@ -1,11 +1,32 @@
 pwgen
 =====
-Formatted Password Generator
+__Formatted Password Generator__
 
-[x] User uploads wordlist file (one word per line)<br>
-[x] Filter words with set number of characters<br>
-[x] Select a single word from the results<br>
-[ ] Display the number of words in results (pool)<br>
+Steps:
+1. Go to PWGen site.
+2. Configure formatting
+3. Select word source (Upload, URL, existing word list)
+4. Parse uploaded/URL word sources to create a list - one word per line.
+5. Generate multiple passwords based on format.
+6. Run each password through strength meter.
+7. Display list passwords with strength score. (Score is hyperlink to strength details - "strength-meter")
+
+Functions:
+  * mkWordList(file) - generate the wordlist_array[]
+    * Remove top 5(?) occuring words. (Show these in showFilesStats().)
+    * Remove single letter words.
+    * Remove numbers and words with numbers.
+  * buildPW(format) - concatenates the segments of the password by calling functions to create each segment based on "format".
+  * getWordOfLen(N) - returns a random word from the list with length "N". (N=null will be random length.) 
+  * getNum(N) - selects a number with the N-length. (N=null will be random length.)
+  * getChar(N) - returns random string of characters - length of N. (N=null will be random length.)
+  * showFileStats() - Show stats of the word file - total/unique words, longest/shortest, top 5 words removed.
+
+Form:
+* Word Source: upload (text box/upload), URL (textbox), select (dropdown)
+
+
+
 [ ] Format a single password segment using [delimiter][number of digits/chars][type of segment]: %15d = 15 digits<br>
 [ ] Parse a password formatting string and produce a password<br>
 [ ] Test new password strength, display strength rating.
