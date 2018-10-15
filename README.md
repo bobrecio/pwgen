@@ -1,7 +1,5 @@
-pwgen
-=====
-## Formatted Password Generator ##
-
+## PWGen: Formatted Password Generator ##
+---
 ### Steps ###
 1. Go to PWGen site.
 2. Select word source (Upload file, paste URL, select existing list)
