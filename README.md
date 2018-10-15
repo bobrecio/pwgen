@@ -1,8 +1,8 @@
 pwgen
 =====
-__Formatted Password Generator__
+## Formatted Password Generator ##
 
-Steps:
+### Steps ###
 1. Go to PWGen site.
 2. Select word source (Upload file, paste URL, select existing list)
 2. Set the password format. (segment editor / paste format string)
@@ -10,32 +10,29 @@ Steps:
 6. Run each password through strength meter.
 7. Display list passwords with strength score. (Score is hyperlink to strength details - "strength-meter")
 
-Functions:
+### Functions ###
   * mkWordList(file) - generate the wordlist_array[]
     * Remove top 5(?) occuring words. (Show these in showFilesStats().)
     * Remove single letter words.
     * Remove numbers and words with numbers.
   * buildPW(format) - concatenates the segments of the password by calling functions to create each segment based on "format". (format=null will generate a random password.
-  * randomFormat - returns a random password format
+  * randomFormat - returns a random password format - for i= 1 to math.random(8) {% + regexp[1234567890] + regexp[aAMdwWsx]}
   * getWordOfLen(N) - returns a random word from the list with length "N". (N=null will be random length.) 
   * getNum(N) - selects a number with the N-length. (N=null will be random length.)
   * getChar(N) - returns random string of characters - length of N. (N=null will be random length.)
   * showFileStats() - Show stats of the word file - total/unique words, longest/shortest, top 5 words removed.
   * pwlist[{"pwd":"","strength":""},{...},...]
 
-Form:
+### Form ###
 * Word Source: upload (text box/upload), URL (textbox), select (dropdown)
 * Display File Stats
 * Build Segments: Type (dropdown), Length
-* Add another segment button
-* Display password format
-* Generate Password Choices
-* List of choices: Password, Strength, Copy Icon
+* [Add another segment]
+* Display password format (textbox)
+* Number of choices (textbox)
+* [Generate Passwords]
+* List of choices: Password, Strength (Raw), Copy Icon
 * [Redo] [Reset]
-
-
-[ ] Test new password strength, display strength rating.
-[ ] Show "raw" score password strength; not 0-100 score.
 
 |char|type|example|description|
 |:---:|:------------:|:-----:|:---------------------------|
@@ -51,10 +48,10 @@ Form:
 
 NOTE: To insert a '%' in the password, use '%%'.
 
-Usage example:
+__ Usage example __
 > %5W.%4d%s%5x (1 5-letter title-case word + dot + 4 digits + 1 symbol + 5 random characters)
 
-Possible result:
+__ Result (possibly) __
 > Hello.1234$eH&12
 
 Test your passwords at http://www.passwordmeter.com/
