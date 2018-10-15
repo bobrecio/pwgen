@@ -45,11 +45,14 @@ Notes:
 * [Redo] [Reset]
 
 Notes:
-  * Add Segment creates properly formatted segments - %NX
+  * [Add Segment] creates properly formatted segments - %NX
 ---
+## Segment Definitions: ##
+Properly formatted segment should be % followed by number then type; % + length + char.<br>
+
 |char|type|example|description|
 |:---:|:------------:|:-----:|:---------------------------|
-|%|delimiter|%2x|
+|%|delimiter|%2x|Delimiter + Length + Char|
 |a|lower-alpha|%5a|5 random lower-alpha characters|
 |A|upper-alpha|%5A|5 random upper-alpha characters|
 |M|mixed-case|%3M|3 random mixed-case characters|
@@ -59,15 +62,15 @@ Notes:
 |T|word from uploaded file (title-case)|%w|random length word with first letter capitalized|
 |s|symbol|%1s|single symbol/special character|
 | \\ |literal|%\\\%|%|
-|x|any characters|%14x|14 random characters of any type (a,A,M,d,w,W,s,x)|
+|x|any characters|%14x|14 random characters of any type (a,A,M,d,w,W,T,s,x)|
 
 Notes: 
   * If number is missing or 0, random length is used.
 ---
-__ Usage example __
+__Usage example__
 > %5T%\\\.%4d%s%5x (1 5-letter title-case word + dot + 4 digits + 1 symbol + 5 random characters)
 
-__ Result (possibly) __
+__Result (possibly)__
 > Hello.1234$eH&12
 ---
 Test your passwords at http://www.passwordmeter.com/
