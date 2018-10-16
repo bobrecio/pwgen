@@ -14,7 +14,7 @@
     * Remove single letter words.
     * Remove numbers, words with numbers, special characters and words with special characters.
   * `buildPW(format)` - concatenates the segments of the password by calling functions to create each segment based on "format".
-  * `parseFormat(string)` - returns array of format. %2W@%4d ==> ["2W","@","4d"]
+  * `parseFormat(string)` - returns array of format. %2W%\\\@%4d ==> ["2W","@","4d"]
   * `randomFormat` - returns a random password format - for i= 1 to math.random(8) {% + [1234567890] + [aAMdwWsx]}
   * `getWordOfLen(N)` - returns a random word from the list with length "N".
   * `getNum(N)` - selects a number with the N-length.
