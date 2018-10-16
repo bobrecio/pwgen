@@ -60,8 +60,8 @@ Notes:
 |M|mixed-case|%3M|3 random mixed-case characters|
 |d|digits|%14d|14 random digits|
 |w|word from uploaded file (lower-case)|%3w|3-letter word with all lower-case letters|
-|W|word from uploaded file (upper-case)|%5w|5-letter word with all upper-case letters|
-|T|word from uploaded file (title-case)|%0w|random length word with first letter capitalized|
+|W|word from uploaded file (upper-case)|%5W|5-letter word with all upper-case letters|
+|T|word from uploaded file (title-case)|%0T|random-length [1-5] word with first letter capitalized|
 |s|symbol|%s|one symbol (aka special character)|
 | \\ |literal|%\\\%|%|
 |x|any characters|%14x|14 random characters of any type (a,A,M,d,w,W,T,s,x)|
