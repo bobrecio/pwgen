@@ -12,7 +12,7 @@
   * `mkWordList(file)` - generate the wordlist_array[]
     * Remove top 5(?) occuring words. (Show these in `showFilesStats()`.)
     * Remove single letter words.
-    * Remove numbers and words with numbers.
+    * Remove numbers, words with numbers, special characters and words with special characters.
   * `buildPW(format)` - concatenates the segments of the password by calling functions to create each segment based on "format".
   * `parseFormat(string)` - returns array of format. %2W@%4d ==> ["2W","@","4d"]
   * `randomFormat` - returns a random password format - for i= 1 to math.random(8) {% + [1234567890] + [aAMdwWsx]}
