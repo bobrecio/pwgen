@@ -37,7 +37,7 @@ Notes:
   * Unique/Total words: 
   * 5 most common:
   * Longest/Shortest
-* Select Segments: Type (dropdown), Length
+* Select Segments: Type (dropdown), Length(textbox, spinner)
 * [Add segment]
 * Display password format (textbox) [default: %1W%1s%3d]
 * Number of choices (textbox)
