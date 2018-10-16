@@ -24,7 +24,7 @@
 
 Notes:
   * If format=NULL, random format will be returned.
-  * If N=NULL, random length will be returned.
+  * If N=NULL, random length between 1 and 5 will be returned.
 
 ---
 ### Form ###
