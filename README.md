@@ -48,11 +48,12 @@ Notes:
   * [Add Segment] creates properly formatted segments - %NX
 ---
 ## Segment Definitions: ##
-Properly formatted segment should be % followed by number then type; % + length + char.<br>
-
+* % is the segment delimiter.
+* Properly formatted segment should be % followed by number then type; % + length + char.<br>
+* If no number is provided for length, length of 1 is assumed.<br>
+* If number is 0, random length between 1 and 5 is used.<br>
 |char|type|example|description|
 |:---:|:------------:|:-----:|:---------------------------|
-|%|delimiter|%2x|Delimiter + Length + Char|
 |a|lower-alpha|%5a|5 random lower-alpha characters|
 |A|upper-alpha|%5A|5 random upper-alpha characters|
 |M|mixed-case|%3M|3 random mixed-case characters|
@@ -64,9 +65,6 @@ Properly formatted segment should be % followed by number then type; % + length 
 | \\ |literal|%\\\%|%|
 |x|any characters|%14x|14 random characters of any type (a,A,M,d,w,W,T,s,x)|
 
-Notes: 
-  * If no number is provided for length, length of 1 is assumed.
-  * If number is 0, random length [1-5] is used.
 ---
 __Usage example__
 > %5T%\\\.%4d%s%5x (Descripton: "1 5-letter title-case word + dot + 4 digits + random number of symbols + 5 random characters")
