@@ -59,17 +59,17 @@ Properly formatted segment should be % followed by number then type; % + length 
 |d|digits|%14d|15 random digits|
 |w|word from uploaded file (lower-case)|%3w|3-letter word with all lower-case letters|
 |W|word from uploaded file (upper-case)|%5w|5-letter word with all upper-case letters|
-|T|word from uploaded file (title-case)|%w|random length word with first letter capitalized|
-|s|symbol|%s|random number of symbols (aka special characters)|
+|T|word from uploaded file (title-case)|%0w|random length word with first letter capitalized|
+|s|symbol|%s|one symbol (aka special character)|
 | \\ |literal|%\\\%|%|
 |x|any characters|%14x|14 random characters of any type (a,A,M,d,w,W,T,s,x)|
 
 Notes: 
-  * If number is missing, length of 1 is assumed.
-  * If number is 0, random length [1-9] is used.
+  * If no number is provided for length, length of 1 is assumed.
+  * If number is 0, random length [1-5] is used.
 ---
 __Usage example__
-> %5T%\\\.%4d%s%5x (1 5-letter title-case word + dot + 4 digits + random number of symbols + 5 random characters)
+> %5T%\\\.%4d%s%5x (Descripton: "1 5-letter title-case word + dot + 4 digits + random number of symbols + 5 random characters")
 
 __Result (possibly)__
 > Hello.1234$eH&12
