@@ -52,6 +52,7 @@ Notes:
 * Properly formatted segment should be % followed by number then type; % + length + char.<br>
 * If no number is provided for length, length of 1 is assumed.<br>
 * If number is 0, random length between 1 and 5 is used.<br>
+
 |char|type|example|description|
 |:---:|:------------:|:-----:|:---------------------------|
 |a|lower-alpha|%5a|5 random lower-alpha characters|
