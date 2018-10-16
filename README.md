@@ -1,5 +1,9 @@
 ## PWGen: Formatted Password Generator ##
 ---
+IMPORTANT!
+CHANGING SEGMENT FORMAT TO %[TYPE][LENGTH]; %W5
+To account for literals as %\@
+
 ### Steps ###
 1. Go to PWGen site.
 2. Select word source (Upload file, paste URL, select existing list)
