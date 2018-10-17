@@ -108,6 +108,7 @@
                 visAllElements("." + srcVal, "visible");
             }
         });
+
         selSegType.addEventListener("change", function() {
             //show the literal box if the choice is a literal
             var segType = selSegType.value;
@@ -119,6 +120,7 @@
                 visAllElements("#segLength", "visible");
             };
         });
+
         addSeg.addEventListener("click", function() {
             var thisSegType = selSegType.value;
             var thisSegLiteral = segLiteral.value;
@@ -188,6 +190,24 @@
                 thisEl[i].style.visibility = action;
             }
         }
+
+        function filterByWordLen(arr, wordLen) {
+            var words = arr.filter(function(v, i, a) {
+                return v.length < worLen + 1;
+            });
+            return words;
+        }
+
+        /* NOTES....
+            function rmVowels(str){
+            var vowels = "aeiou";
+            return str.toLowerCase().split("").filter(function(v,i,a){
+            return vowels.indexOf(v) === -1;
+            }).join('');
+            }
+            example: rmVowels('Roberto') => "rbrt"
+
+        */
     </script>
 </body>
 
