@@ -1,13 +1,15 @@
 ## PWGen: Formatted Password Generator ##
 ---
-IMPORTANT!
-CHANGING SEGMENT FORMAT TO %[TYPE][LENGTH]; %W5
-To account for literals as %\@
+# IMPORTANT!
+# CHANGING SEGMENT FORMAT TO %[TYPE][LENGTH]; %W5
+# To account for literals as %\@
 
 ### Steps ###
 1. Go to PWGen site.
 2. Select word source (Upload file, paste URL, select existing list)
-2. Set the password format. (segment editor / paste format string)
+2. Set the password format. 
+  * Use the segment builder.
+  * Paste in one of your premade password formats.
 5. Generate multiple passwords based on format.
 6. Run each password through strength meter.
 7. Display list passwords with strength score. (Score is hyperlink to strength details - "strength-meter")
