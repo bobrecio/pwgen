@@ -71,9 +71,16 @@ Notes:
 
 ---
 __Usage example__
-> %5T%\\\.%d4%s%x5 (Descripton: "1 5-letter title-case word + dot + 4 digits + random number of symbols + 5 random characters")
+> `%5T%\\\.%d4%s%x5`
+|segment|Descripton|
+|---|---|
+|%5T|1 5-letter title-case word|
+|%\\\.|dot|
+|%d4|4 digits|
+|%s|random number of symbols|
+|%x5|5 random characters of any type|
 
 __Possible result__
-> Hello.1234$eH&12
+> `Hello.1234$eH&12`
 ---
 Test your passwords at http://www.passwordmeter.com/
