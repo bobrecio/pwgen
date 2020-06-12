@@ -1,6 +1,13 @@
 ## PWGen: Formatted Password Generator ##
 ---
 
+#### This app has not been developed yet. ####
+- Generates password based on a user-requested format
+- The password is composed of segments of various types. (see table below)
+- The user can provide the format or the app can randomly generate it.
+- Random words are selected based on a random number to find the position in a text file. The text file can be provided by the user, point to a web page (URL), or selected from a built in list of text files.
+- The password is tested agains a password strength meter
+
 ### Steps ###
 1. Go to PWGen site.
 2. Select word source (Upload file, paste URL, select existing list)
