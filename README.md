@@ -66,14 +66,14 @@ Notes:
 |W|word from uploaded file (upper-case)|%W5|5-letter word with all upper-case letters|
 |T|word from uploaded file (title-case)|%T0|random-length [1-5] word with first letter capitalized|
 |s|symbol|%s|one symbol (aka special character)|
-| \\ |literal|%\\\%|%|
+| \\ |literal|%\\\%|produces %|
 |x|any characters|%x14|14 random characters of any type (a,A,M,d,w,W,T,s,x)|
 
 ---
 __Usage example__
 > %5T%\\\.%d4%s%x5 (Descripton: "1 5-letter title-case word + dot + 4 digits + random number of symbols + 5 random characters")
 
-__Result (possibly)__
+__Possible result__
 > Hello.1234$eH&12
 ---
 Test your passwords at http://www.passwordmeter.com/
