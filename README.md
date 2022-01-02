@@ -78,11 +78,11 @@ Notes:
 
 ---
 __Usage example__
-> `%5T%\\\.%d4%s%x5`
+> `%T5%\\\.%d4%s%x5`
 
 |segment|Descripton|
 |---|---|
-|%5T|1 5-letter title-case word|
+|%T5|1 5-letter title-case word|
 |%\\\.|dot|
 |%d4|4 digits|
 |%s|random number of symbols|
