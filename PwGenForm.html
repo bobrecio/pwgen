@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>PWGen</title>
+  <style>
+    .builtin,
+    .url,
+    .upload,
+    #txtLiteral {
+      visibility: hidden;
+    }
+
+    .wordSource {}
+
+    #thisFormat {
+      font-size: 2em;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="form">
+    <div id="sectionWordSource">
+      <fieldset>
+        <legend>Word Source...</legend>
+        <select id="selectWordSource">
+          <option value="">- Select -</option>
+          <option value="upload">Upload File</option>
+          <option value="url">Input URL</option>
+          <option value="builtin">Built-In</option>
+        </select>
+        <br>
+        <span id="panelUpload" class="wordSource upload"><input name="fileName" placeholder="File" type="text"
+            style="width: 600px" /><button id="btnUpload" class="wordSource upload">Browse</button></span><br>
+        <span id="panelURL" class="wordSource url"><input name="url" placeholder="URL" type="text"
+            style="width: 600px" /></span><br>
+        <span id="panelBuiltIn" class="wordSource builtin">
+          <input class="wordSource builtin" name="builtinRadio" type="radio" value="File1" /><label
+            class="wordSource builtin">File1 &nbsp;&nbsp;</label>
+          <input class="wordSource builtin" name="builtinRadio" type="radio" value="File2" /><label
+            class="wordSource builtin">&nbsp;File2 &nbsp;&nbsp;</label>
+          <input class="wordSource builtin" name="builtinRadio" type="radio" value="File3" /><label
+            class="wordSource builtin">&nbsp;File3</label>
+        </span><br>
+
+        <button id="btnImport" class="upload url">Import</button>
+        <button id="btnCancel" class="upload url builtin">Cancel</button>
+      </fieldset>
+    </div>
+    <div id="sectionFileStats">
+      <fieldset>
+        <legend>File Stats...</legend>
+        Total Words: <span id="statsTotal"></span>&nbsp;|&nbsp; Unique Words: <span
+          id="statsUnique"></span>&nbsp;|&nbsp; Longest Word: <span id="statsLongest"></span>&nbsp;|&nbsp; Shortest
+        Word: <span id="statsShortest"></span><br> Top 5 words:
+        <span id="statsTop5"></span>&nbsp;|&nbsp;
+      </fieldset>
+    </div>
+    <div id="sectionSegements">
+      <fieldset>
+        <legend>Segments...</legend>
+        Type:&nbsp;
+        <select id="segType">
+          <optgroup label="Random Character(s)">
+            <option value="">- Select -</option>
+            <option value="l">Lowercase Letter</option>
+            <option value="L">Uppercase Letter</option>
+            <option value="m">Random-case Letter</option>
+            <option value="d">Digit/Number</option>
+          </optgroup>
+          <optgroup label="Random Word(s)">
+          <optgroup label=">> From File">
+            <option value="w">lower-case</option>
+            <option value="W">upper-case</option>
+            <option value="X">title-case</option>
+          </optgroup>
+          <optgroup label=">> Adjective">
+            <option value="a">lower-case</option>
+            <option value="A">upper-case</option>
+            <option value="Y">title-case</option>
+          </optgroup>
+          <optgroup label=">> Noun">
+            <option value="n">lower-case</option>
+            <option value="N">upper-case</option>
+            <option value="Z">title-case</option>
+          </optgroup>
+          </optgroup>
+
+          <option value="s">Symbol/Special-Character</option>
+          <option value="x">Random/Any type</option>
+          <option value="\">Literal (specify)</option>
+        </select>
+        <input type="text" id="txtLiteral" placeholder="Enter Literal Here" maxlength="1" /><br> Length: <input
+          type="number" id="segLength" min="0" /><br>
+        <button id="btnAddSeg">Add Segment</button>
+      </fieldset>
+    </div>
+    <div id="sectionFormat">
+      <fieldset>
+        <legend>Password Format...</legend>
+        <input type="text" id="thisFormat" />
+      </fieldset>
+    </div>
+    <div id="sectionResults">
+      <fieldset>
+        <legend>Results</legend>
+        How many choices do you want?&nbsp;
+        <input type="number" min="1" value="5">
+        <button id="btnGeneratePW">Generate</button><br>
+        <div id="pwResults"></div>
+      </fieldset>
+    </div><br>
+    <button id="btnReset">RESET</button>
+  </div>
+  <script type="text/javascript">
+    var selWordSource = document.querySelector("#selectWordSource");
+    var selSegType = document.querySelector("#segType");
+    var segLiteral = document.querySelector("#txtLiteral");
+    var segLength = document.querySelector("#segLength");
+    var addSeg = document.querySelector("#btnAddSeg");
+    var showFormat = document.querySelector("#thisFormat");
+    var btnGenerate = document.querySelector("#btnGeneratePW");
+
+    selWordSource.addEventListener("change", function () {
+      //hide all elements
+      visAllElements(".wordSource", "hidden");
+
+      //show the elements according to the class "selVal"
+      //TEST: change dropdown to all values, then back to blank.
+      var srcVal = selWordSource.value;
+      if (srcVal) {
+        visAllElements("." + srcVal, "visible");
+      }
+    });
+
+    selSegType.addEventListener("change", function () {
+      //show the literal box if the choice is a literal
+      var segType = selSegType.value;
+      if (segType === "\\") {
+        visAllElements("#txtLiteral", "visible");
+        visAllElements("#segLength", "hidden");
+      } else {
+        visAllElements("#txtLiteral", "hidden");
+        visAllElements("#segLength", "visible");
+      };
+    });
+
+    addSeg.addEventListener("click", function () {
+      var thisSegType = selSegType.value;
+      var thisSegLiteral = segLiteral.value;
+      var thisSegLength = segLength.value;
+      var thisSegment = "%" + thisSegType + [thisSegLength || thisSegLiteral];
+
+      showFormat.value += thisSegment;
+
+      selSegType.value = "";
+      segLiteral.value = "";
+      segLength.value = "";
+    });
+
+    btnGenerate.addEventListener("click", function () {
+      var pwFormat = showFormat.value;
+      var thisPW = "";
+      var thisResult = [];
+      var thisSegType = "";
+      var thisSegLen = "";
+      console.log(getSegment(pwFormat));
+
+      /*
+      do {
+ 
+      thisResult = getSegment(pwFormat);
+ 
+      thisSegType = thisResult[0];
+      thisSegLen = thisResult[1];
+      pwFormat = thisResult[2];
+ 
+      //console.log(thisSegType, thisSegLen, pwFormat);
+      console.log(thisResult, pwFormat.length);
+      }
+      while (pwFormat.length > 0);
+*/
+    });
+
+    function getSegment(format) {
+      //build a string until you find a % at an index greater than 2.
+      // i > 2 means that it's beyond the third position.
+      // this accounts for literals with a %-sign: %\%
+      // and for segments with more than one digit length: %x14
+
+      //returns an array with the next segment and the remaining string
+
+      var thisFormat = format;
+      var thisSegment = "";
+
+      for (i = 1; i > thisFormat.length; i++) {
+        if (thisFormat[i] != "\%") {
+          thisSegment += thisFormat[i];
+        } else if (i > 2) {
+          thisFormat = thisFormat.substring(i);
+          var segType = thisSegment.substring(thisSegment.length - 1);
+          var segLen = thisSegment.substring(0, thisSegment.length - 1);
+          var result = [segType, segLen, thisFormat];
+          //console.log(result);
+          return (result);
+        }
+      }
+    }
+
+    function visAllElements(elName, action) {
+      //performs visibility action on all elements selected
+      var thisEl = document.querySelectorAll(elName);
+      for (i = 0; i < thisEl.length; i++) {
+        thisEl[i].style.visibility = action;
+      }
+    }
+
+    function filterByWordLen(arr, wordLen) {
+      var words = arr.filter(function (v, i, a) {
+        return v.length < worLen + 1;
+      });
+      return words;
+    }
+
+    /* NOTES....
+        function rmVowels(str){
+        var vowels = "aeiou";
+        return str.toLowerCase().split("").filter(function(v,i,a){
+        return vowels.indexOf(v) === -1;
+        }).join('');
+        }
+        example: rmVowels('Roberto') => "rbrt"
+ 
+    */
+  </script>
+
+</body>
+
+</html>
