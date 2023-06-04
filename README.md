@@ -63,30 +63,34 @@ Notes:
 * If no number is provided for length, length of 1 is assumed.<br>
 * If number is 0, random length between 1 and 5 is used.<br>
 
-|char|type|example|description|
-|:---:|:------------:|:-----:|:---------------------------|
-|a|lower-alpha|%a5|5 random lower-alpha characters|
-|A|upper-alpha|%A5|5 random upper-alpha characters|
-|M|mixed-case|%M3|3 random mixed-case characters|
-|d|digits|%d14|14 random digits|
-|w|word from uploaded file (lower-case)|%w3|3-letter word with all lower-case letters|
-|W|word from uploaded file (upper-case)|%W5|5-letter word with all upper-case letters|
-|T|word from uploaded file (title-case)|%T0|random-length [1-5] word with first letter capitalized|
-|s|symbol|%s|one symbol (aka special character)|
-| \\ |literal|%\\\%|produces %|
-|x|any characters|%x14|14 random characters of any type (a,A,M,d,w,W,T,s,x)|
+|    char    |                  type                  | example | description                                 |
+| :--------: | :------------------------------------: | :-----: | :------------------------------------------ |
+|     a      |              lower-alpha               |   %a5   | 5 random lower-alpha characters             |
+|     A      |              upper-alpha               |   %A5   | 5 random upper-alpha characters             |
+|   M or m   |               mixed-case               |   %M3   | 3 random mixed-case characters              |
+|     d      |                 digits                 |  %d14   | 14 random digits                            |
+|     s      |                 symbol                 |   %s    | 5 (default) symbol (aka special character)  |
+|     \\     |                literal                 |  %\\\!  | produces !                                  |
+|     x      |             any characters             |  %x14   | 14 random characters of any type            |
+|     wl     |           word (lower-case)            |  %wl3   | 3-letter word with all lower-case letters   |
+|     wu     |           word (upper-case)            |  %wu5   | 5-letter word with all upper-case letters   |
+|     wt     |           word (title-case)            |  %wt0   | 5-letter word with first letter capitalized |
+| nl, nu, nt |   noun (upper-, lower-, title-case)    |         |                                             |
+| vl, vu, vt |   verb (upper-, lower-, title-case)    |         |                                             |
+| jl, ju, jt | adjective (upper-, lower-, title-case) |         |                                             |
+| bl, bu, bt |  adverb (upper-, lower-, title-case)   |         |                                             |
 
 ---
 __Usage example__
 > `%T5%\\\.%d4%s%x5`
 
-|segment|Descripton|
-|---|---|
-|%T5|1 5-letter title-case word|
-|%\\\.|dot|
-|%d4|4 digits|
-|%s|random number of symbols|
-|%x5|5 random characters of any type|
+| segment | Descripton                      |
+| ------- | ------------------------------- |
+| %T5     | 1 5-letter title-case word      |
+| %\\\.   | dot                             |
+| %d4     | 4 digits                        |
+| %s      | random number of symbols        |
+| %x5     | 5 random characters of any type |
 
 __Possible result__
 > `Hello.1234$eH&12`
