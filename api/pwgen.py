@@ -25,7 +25,7 @@ def getWord(type: str="n", word_len: int = 5):
              "j":"adjs.txt", 
              "b":"advs.txt", 
              "w":"words.txt",
-             "1":"numbers.txt",
+             "1":"colors.txt",
              "2":"months.txt",
              "3":"days.txt"}
     type = 'n' if type not in types else type
@@ -113,6 +113,7 @@ def pwgen(pattern):
 
                 case "w" | "n" | "v" | "j" | "b" | "c" | "#":
                     #words
+                    word_type = ""
                     if (len(part) == 1):
                         word_length = 5
                         word_case = "t"
@@ -124,16 +125,17 @@ def pwgen(pattern):
                             this_num = "20"
                         word_length = int(part_num(this_num))
                         word_case = "t"
-                    elif part[0] == "c" and part[1].isdigit() == False:
-                        word_length = part[2:]
-                        word_case = part[1]
+                    elif part[0] == "c":
+                        word_length = part[2:] if part[1].isdigit() == False else part[1:]
+                        word_case = part[1] if part[1].isdigit() == False else "t"
+                        word_type = part[2] if part[1].isdigit() == False else part[1]
                     else:
                         # limit to 20-char words
                         this_num = "20" if int(part[2:]) > 20 else part[2:]
                         word_length = int(part_num(this_num))
                         word_case = part[1]
                                         
-                    word_type = part[2] if part[0] == "c" else part[0]
+                    word_type = word_type if part[0] == "c" else part[0]
 
                     this_word = getWord(word_type, word_length) if part[0] != "#" else spell_number(word_length)
                         
@@ -148,22 +150,14 @@ def pwgen(pattern):
                             #lower-case word
                             pw += this_word.lower()
 
-    return(word_type, word_case, pw)
+    return(pw)
 
-# print(pwgen("%jt4%\ %nt0%\: (%c1%\)%d3%\-%d4"))
-print(pwgen("%ct2"))
+# print(pwgen("%jt4%\ %nt0%\: (%cu1%\)%d3%\-%d4"))
+print(pwgen("%cl2"))
 
 # %%
-for i in range(5):
-    # words (type+case+length)
-    #   type(required): n=noun; v=verb; j=adjective; b=adverb
-    #   case: u=UPPER, l=lower, t=Title(default)
-    #   length: 1-14, 0=random, default=5
-    # characters (type+length)
-    #   type(required): a=lower-letter; A=UPPER-letter; m/M=Random Mixed Case letter; d=digit; s=symbol; x=any characters (mixed + symbols + digits)
-    #   length: 1-??; default=5; 0=random
-    # literal (\+char/string)
-    print(pwgen("%jt4%nt0%\@%\.%d3%c1%c2%c3"))
+print(pwgen("%jt4%nt0%\@%\.%d3%c1%cu2%cl3"))
+print(pwgen("%jt4%\ %nt0%\: (%#u11%\)%d3%\-%d4"))
 
 # %% [markdown]
 # ## USAGE
@@ -196,8 +190,9 @@ for i in range(5):
 # |vl, vu, vt|verb (upper-, lower-, title-case)|||
 # |jl, ju, jt|adjective (upper-, lower-, title-case)|||
 # |bl, bu, bt|adverb (upper-, lower-, title-case)|||
-# |c1|custom: random number word|%c1|eight|
-# |c2|custom: random month word|#c2||
+# |cl1, cu1, ct1|custom 1: random color|%cl1|purple (lower-case)|
+# |cl2, cu2, ct2|custom 2: random month word|#cu2|MARCH (upper-case)|
+# |cl3, cu3, ct3|custom 3: random day word|%ct3|Wednesday (title-case)|
 # 
 # ---
 # __Usage example__
