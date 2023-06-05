@@ -20,17 +20,43 @@ print(anychar)
 
 # %%
 def getWord(type: str="n", word_len: int = 5):
-    types = {"n":"nouns.txt", "v":"verbs.txt", "j":"adjs.txt", "b":"advs.txt", "w":"words.txt"}
+    types = {"n":"nouns.txt", 
+             "v":"verbs.txt", 
+             "j":"adjs.txt", 
+             "b":"advs.txt", 
+             "w":"words.txt",
+             "1":"numbers.txt",
+             "2":"months.txt",
+             "3":"days.txt"}
+    type = 'n' if type not in types else type
     file = "./words/" + types[type]
     words = open(file, "r").readlines()
-    words_with_len = []
-    for word in words:
-        if len(word[:-1]) == word_len:
-            words_with_len.append(word[:-1])
-    word_pick = random.choice(words_with_len)
+    words_list = []
+    for this_word in words:
+        #need to remove the \n at the end of each, but not last word in file
+        word = this_word[:-1] if '\n' in this_word else this_word 
+        if (type.isdigit() == False) and (len(word) == word_len):
+            words_list.append(word)
+        else:
+            words_list.append(word)
+    word_pick = random.choice(words_list)
     return(word_pick)
 
-print(getWord("j"))
+print(getWord("2"))
+
+# %%
+def spell_number(numeral):
+    n = numeral if numeral != "0" else random(range(99))
+
+    nums_list = {1:"one",2:"two",3:"three",4:"four",5:"five",6:"six",7:"seven",8:"eight",9:"nine",10:"ten",
+                11:"eleven",12:"twelve",13:"thirteen",14:"fourteen",15:"fifteen",16:"sixteen",17:"seventeen",18:"eighteen",19:"nineteen"}
+    tens_list = {2:"twenty",3:"thirty",4:"forty",5:"fifty",6:"sixty",7:"seventy",8:"eighty",9:"ninety"}
+
+    spelled_number = nums_list[int(n)] if int(n) in nums_list else tens_list[int(n[0])] + "-" + nums_list[int(n[1])] if n[1] != "0" else tens_list[int(n[0])]
+
+    return(spelled_number)
+
+print(spell_number("19"))
 
 # %%
 def part_num(pnum):
@@ -56,6 +82,8 @@ def pwgen(pattern):
     else:
         for part in pattern_parts:
             match part[0]:
+                # case "#":
+                #     pw += spell_number(part[1:])
                 case"\\":
                     #literal
                     pw += part[1:]
@@ -82,27 +110,32 @@ def pwgen(pattern):
                             case "x":
                                 #random any character
                                 pw += random.choice(anychar)
-                case "w" | "n" | "v" | "j" | "b":
+
+                case "w" | "n" | "v" | "j" | "b" | "c" | "#":
                     #words
                     if (len(part) == 1):
                         word_length = 5
                         word_case = "t"
-                    elif part[1].isdigit():
+                    elif part[1].isdigit() and part[0] != "c":
+                        # if no word-case indicated
                         this_num = part[1:]
-                        if int(this_num) > 20:
-                            # limit to 20-cahr words
-                            this_num = "20"
-                        word_length = int(part_num(this_num))
-                        word_case = "t"
-                    else:
-                        this_num = part[2:]
                         if int(this_num) > 20:
                             # limit to 20-char words
                             this_num = "20"
                         word_length = int(part_num(this_num))
+                        word_case = "t"
+                    elif part[0] == "c" and part[1].isdigit() == False:
+                        word_length = part[2:]
                         word_case = part[1]
+                    else:
+                        # limit to 20-char words
+                        this_num = "20" if int(part[2:]) > 20 else part[2:]
+                        word_length = int(part_num(this_num))
+                        word_case = part[1]
+                                        
+                    word_type = part[2] if part[0] == "c" else part[0]
 
-                    this_word = getWord(part[0], word_length)
+                    this_word = getWord(word_type, word_length) if part[0] != "#" else spell_number(word_length)
                         
                     match word_case:
                         case "t":
@@ -115,9 +148,10 @@ def pwgen(pattern):
                             #lower-case word
                             pw += this_word.lower()
 
-    return(pw)
+    return(word_type, word_case, pw)
 
-print(pwgen("%jt4%\ %nt0%\: (%d3%\)%d3%\-%d4"))
+# print(pwgen("%jt4%\ %nt0%\: (%c1%\)%d3%\-%d4"))
+print(pwgen("%ct2"))
 
 # %%
 for i in range(5):
@@ -129,7 +163,7 @@ for i in range(5):
     #   type(required): a=lower-letter; A=UPPER-letter; m/M=Random Mixed Case letter; d=digit; s=symbol; x=any characters (mixed + symbols + digits)
     #   length: 1-??; default=5; 0=random
     # literal (\+char/string)
-    print(pwgen("%jt4%\.%nt0%\@%d3%\.%d3"))
+    print(pwgen("%jt4%nt0%\@%\.%d3%c1%c2%c3"))
 
 # %% [markdown]
 # ## USAGE
@@ -153,6 +187,7 @@ for i in range(5):
 # |d|digits|%d14|14 random digits|
 # |s|symbol|%s|5 (default) symbol (aka special character)|
 # | \\ |literal char/string|%\hello!|produces hello!|
+# |#|spelled number (1-2 digits)|#l33|thirty-three (lower case)
 # |x|any characters|%x14|14 random characters of any type|
 # |wl|word (lower-case)|%wl3|3-letter word with all lower-case letters|
 # |wu|word (upper-case)|%wu5|5-letter word with all upper-case letters|
@@ -161,6 +196,8 @@ for i in range(5):
 # |vl, vu, vt|verb (upper-, lower-, title-case)|||
 # |jl, ju, jt|adjective (upper-, lower-, title-case)|||
 # |bl, bu, bt|adverb (upper-, lower-, title-case)|||
+# |c1|custom: random number word|%c1|eight|
+# |c2|custom: random month word|#c2||
 # 
 # ---
 # __Usage example__
