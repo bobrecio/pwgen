@@ -45,8 +45,8 @@ def getWord(type: str="n", word_len: int = 5):
 print(getWord("2"))
 
 # %%
-def spell_number(numeral):
-    n = numeral if numeral != "0" else random(range(99))
+def spell_number(numeral: str = "0"):
+    n = numeral if numeral != "0" else str(random.choice(range(99)))
 
     nums_list = {1:"one",2:"two",3:"three",4:"four",5:"five",6:"six",7:"seven",8:"eight",9:"nine",10:"ten",
                 11:"eleven",12:"twelve",13:"thirteen",14:"fourteen",15:"fifteen",16:"sixteen",17:"seventeen",18:"eighteen",19:"nineteen"}
@@ -56,7 +56,7 @@ def spell_number(numeral):
 
     return(spelled_number)
 
-print(spell_number("19"))
+print(spell_number("0"))
 
 # %%
 def part_num(pnum):
