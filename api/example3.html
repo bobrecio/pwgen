@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Repeating Sections with API Integration</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Counter for section IDs
+      let sectionCounter = 1;
+
+      // Add section
+      $('#addSectionBtn').click(function () {
+        const sectionId = 'section' + sectionCounter;
+        const sectionHtml = `
+          <div id="${sectionId}" class="section">
+            <h3>Section ${sectionCounter}</h3>
+            <select class="dropdown">
+              <option value="option1">Option 1</option>
+              <option value="option2">Option 2</option>
+              <option value="option3">Option 3</option>
+            </select>
+            <input type="text" class="textbox1" placeholder="Enter value 1">
+            <input type="text" class="textbox2" placeholder="Enter value 2">
+            <button class="removeBtn">Remove Section</button>
+            <div class="result"></div>
+          </div>
+        `;
+        $('#sectionsContainer').append(sectionHtml);
+
+        // Increment section counter
+        sectionCounter++;
+      });
+
+      // Remove section
+      $(document).on('click', '.removeBtn', function () {
+        $(this).closest('.section').remove();
+      });
+
+      // Send all inputs to API
+      $('#sendAllBtn').click(function () {
+        const sections = $('.section');
+        const requestData = [];
+
+        sections.each(function (index) {
+          const section = $(this);
+          const dropdownValue = section.find('.dropdown').val();
+          const textbox1Value = section.find('.textbox1').val();
+          const textbox2Value = section.find('.textbox2').val();
+
+          requestData.push({
+            dropdownValue: dropdownValue,
+            textbox1Value: textbox1Value,
+            textbox2Value: textbox2Value
+          });
+        });
+
+        // Make API request with the parameters
+        // Replace 'API_ENDPOINT' with the actual API endpoint
+        $.ajax({
+          url: 'API_ENDPOINT',
+          method: 'POST',
+          data: JSON.stringify(requestData),
+          contentType: 'application/json',
+          success: function (response) {
+            sections.each(function (index) {
+              const section = $(this);
+              section.find('.result').text('API Response: ' + response[index]);
+            });
+          },
+          error: function () {
+            sections.each(function () {
+              const section = $(this);
+              section.find('.result').text('Error occurred while calling the API.');
+            });
+          }
+        });
+      });
+    });
+  </script>
+  <style>
+    .section {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Repeating Sections with API Integration</h1>
+  <div id="sectionsContainer"></div>
+  <button id="addSectionBtn">Add Section</button>
+  <button id="sendAllBtn">Send All</button>
+</body>
+
+</html>

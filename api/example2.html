@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Repeating Sections with API Integration</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+  <h1>Repeating Sections with API Integration</h1>
+
+  <div id="sections">
+    <div class="section">
+      <h3>Section 1</h3>
+      <label for="input1">Input 1:</label>
+      <select id="input1">
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+    </div>
+  </div>
+
+  <button id="addSection">Add Section</button>
+  <button id="submit">Submit</button>
+
+  <div id="results"></div>
+
+  <script>
+    // Counter to keep track of the number of sections
+    var sectionCounter = 1;
+
+    // Function to add a new section
+    function addSection() {
+      sectionCounter++;
+
+      var sectionHTML = `
+        <div class="section">
+          <h3>Section ${sectionCounter}</h3>
+          <label for="input${sectionCounter}">Input ${sectionCounter}:</label>
+          <select id="input${sectionCounter}">
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+          </select>
+        </div>
+      `;
+
+      $("#sections").append(sectionHTML);
+    }
+
+    // Function to handle form submission
+    function handleSubmit() {
+      var data = [];
+
+      $(".section").each(function () {
+        var sectionData = {
+          input: $(this).find("select").val()
+        };
+
+        data.push(sectionData);
+      });
+
+      // Make an API call with the data
+      $.ajax({
+        url: "https://api.example.com/endpoint",
+        method: "POST",
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        success: function (response) {
+          displayResults(response);
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    }
+
+    // Function to display API results on the page
+    function displayResults(results) {
+      $("#results").html("");
+
+      results.forEach(function (result, index) {
+        var resultHTML = `
+          <div class="result">
+            <h3>Result ${index + 1}</h3>
+            <p>${result}</p>
+          </div>
+        `;
+
+        $("#results").append(resultHTML);
+      });
+    }
+
+    // Event listener for adding a section
+    $("#addSection").on("click", function () {
+      addSection();
+    });
+
+    // Event listener for form submission
+    $("#submit").on("click", function () {
+      handleSubmit();
+    });
+  </script>
+</body>
+
+</html>

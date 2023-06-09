@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>PWGen: Formatted Password Generator</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Counter for segments IDs
+      let segmentsCounter = 2;
+      let requestData = "";
+      let requestCount = "";
+      let requestString = "";
+
+      // Add segments
+      $('#addSegmentBtn').click(function () {
+        const segmentsId = 'segments' + segmentsCounter;
+        const segmentsHtml = `
+          <div id="${segmentsId}" class="segments">
+            Segment ${segmentsCounter}
+            <select class="dropdown1">
+              <optgroup label="Words">
+                <option value="n">Noun</option>
+                <option value="v">Verb</option>
+                <option value="j">Adjective</option>
+                <option value="b">Adverb</option>
+                <option value="w">Any word</option>
+                <option value="c1">Color</option>
+                <option value="c2">Month</option>
+                <option value="c3">Day</option>
+                <option value="0">Number</option>
+              </optgroup>
+              <optgroup label="Characters">
+                <option value="a">Lowercase Letter</option>
+                <option value="A">Uppercase Letter</option>
+                <option value="m">Mixed-case Letter</option>
+                <option value="s">Symbol/Special Char.</option>
+                <option value="d">Digit</option>
+                <option value="x">Any Character</option>
+                <option value="\">Literal string</option>
+              </optgroup>
+            </select>
+            <select class="dropdown2">
+              <option value="l">Lower case</option>
+              <option value="u">Upper case</option>
+              <option value="t">Title case</option>
+            </select>
+            <input type="text" class="textbox" placeholder="Enter value 2">
+            <button class="removeBtn">Remove Segments</button>
+            <div class="result"></div>
+          </div>
+        `;
+        $('#segmentsContainer').append(segmentsHtml);
+
+        // Increment segments counter
+        segmentsCounter++;
+      });
+
+      // Remove segments
+      $(document).on('click', '.removeBtn', function () {
+        $(this).closest('.segments').remove();
+      });
+
+      // Send all inputs to API
+      $('#btnPWGen').click(function () {
+        const segments = $('.segments');
+
+        segments.each(function (index) {
+          const segments = $(this);
+          const dropdownValue = segments.find('.dropdown1').val();
+          const textbox1Value = segments.find('.dropdown2').val();
+          const textbox2Value = segments.find('.textbox').val();
+
+          requestData += `%${dropdownValue}${textbox1Value}${textbox2Value}`
+          console.log(requestData);
+          // requestData.push({
+          //   dropdownValue: dropdownValue,
+          //   textbox1Value: textbox1Value,
+          //   textbox2Value: textbox2Value
+        });
+      });
+
+      requestCount = $("#count").value || 3;
+
+      requestString = `format=${requestData}&count=${requestCount}`;
+
+      console.log(requestString);
+
+      // Make API request with the parameters
+      // $.ajax({
+      //   url: '127.0.0.1:8000/pwgen',
+      //   method: 'GET',
+      //   data: `format=${requestData}&count=${requestCount}`,
+      //   contentType: 'application/json',
+      //   success: function (response) {
+      //     segments.each(function (index) {
+      //       const segments = $(this);
+      //       segments.find('.result').text('API Response: ' + response[index]);
+      //     });
+      //   },
+      //   error: function () {
+      //     segments.each(function () {
+      //       const segments = $(this);
+      //       segments.find('.result').text('Error occurred while calling the API.');
+      //     });
+      //   }
+      // });
+    });
+  </script>
+  <style>
+    .segments {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Repeating Segmentss with API Integration</h1>
+  <div id="segmentsContainer">
+    <div id="segment1" class="segments">
+      Segment 1
+      <select class="dropdown1">
+        <optgroup label="Words">
+          <option value="n">Noun</option>
+          <option value="v">Verb</option>
+          <option value="j">Adjective</option>
+          <option value="b">Adverb</option>
+          <option value="w">Any word</option>
+          <option value="c1">Color</option>
+          <option value="c2">Month</option>
+          <option value="c3">Day</option>
+          <option value="0">Number</option>
+        </optgroup>
+        <optgroup label="Characters">
+          <option value="a">Lowercase Letter</option>
+          <option value="A">Uppercase Letter</option>
+          <option value="m">Mixed-case Letter</option>
+          <option value="s">Symbol/Special Char.</option>
+          <option value="d">Digit</option>
+          <option value="x">Any Character</option>
+          <option value="\">Literal string</option>
+        </optgroup>
+      </select>
+      <select class="dropdown2">
+        <option value="l">Lower case</option>
+        <option value="u">Upper case</option>
+        <option value="t">Title case</option>
+      </select>
+      <input type="text" class="textbox" placeholder="Enter value">
+      <button class="removeBtn">Remove Segments</button>
+      <div class="result"></div>
+    </div>
+  </div>
+  <button id="addSegmentBtn">Add a segment</button><br>
+  <hr>
+  How many choices do you want? <input id="count" size="1" />&nbsp;&nbsp;
+  <button id="btnPWGen">Get passwords with this format</button>
+</body>
+
+</html>

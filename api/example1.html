@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Repeating Sections with Dropdown Inputs</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+  <h1>Repeating Sections with Dropdown Inputs</h1>
+
+  <div id="sections-container">
+    <div class="section">
+      <h2>Section 1</h2>
+      <label for="dropdown">Dropdown:</label>
+      <select class="dropdown" name="dropdown">
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+    </div>
+  </div>
+
+  <button id="add-section">Add Section</button>
+  <button id="send-data">Send Data to API</button>
+
+  <script>
+    $(document).ready(function () {
+      // Add a new section when the "Add Section" button is clicked
+      $('#add-section').click(function () {
+        var sectionCount = $('.section').length;
+        var newSection = `
+          <div class="section">
+            <h2>Section ${sectionCount + 1}</h2>
+            <label for="dropdown">Dropdown:</label>
+            <select class="dropdown" name="dropdown">
+              <option value="option1">Option 1</option>
+              <option value="option2">Option 2</option>
+              <option value="option3">Option 3</option>
+            </select>
+          </div>
+        `;
+        $('#sections-container').append(newSection);
+      });
+
+      // Send data to the API when the "Send Data to API" button is clicked
+      $('#send-data').click(function () {
+        var dataToSend = [];
+        $('.dropdown').each(function (index) {
+          var sectionData = {
+            section: index + 1,
+            dropdownValue: $(this).val()
+          };
+          dataToSend.push(sectionData);
+        });
+
+        // Send data to the API using AJAX
+        $.ajax({
+          url: 'YOUR_API_ENDPOINT',
+          type: 'POST',
+          data: JSON.stringify(dataToSend),
+          contentType: 'application/json',
+          success: function (response) {
+            console.log('Data sent successfully!');
+            console.log(response);
+            // Handle the API response here
+          },
+          error: function (error) {
+            console.log('Error sending data to the API!');
+            console.log(error);
+            // Handle the error here
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
