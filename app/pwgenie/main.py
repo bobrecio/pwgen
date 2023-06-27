@@ -7,10 +7,7 @@ from pwgen import pwgen, getWord, spell_number
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:*",
-    "http://127.0.0.1:*"
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,15 +17,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 @app.get("/pwgen/")
-async def getPW(count: int = 3, format: str = "%jt4%nt0%s%d3%s%d4"):
+async def getPW(count: int = 3, format: str = "|jl4|\-|nt0|s1|d3|\-|d3|\-|d4"):
     this_pw = []
     for i in range(count):
         this_pw.append(str(pwgen(format)))
-    return {"pw list": this_pw}
+    return {"pw_list": this_pw}
 
-
+# http://localhost:8000/pwgen/alacart/?type=2
 @app.get("/pwgen/alacart/")
 async def getPart(number: int = 3, type: str = "n"):
     rtnType = "spell_num" if type == "0" else type
@@ -42,7 +38,4 @@ async def getPart(number: int = 3, type: str = "n"):
                 this_type.append(getWord(type))
         case "spell_num":
             this_type.append(spell_number(str(number)))
-    return {"pw list": this_type}
-
-# if __name__ == "__main__":
-#    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    return {"items": this_type}

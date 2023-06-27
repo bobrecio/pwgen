@@ -7,52 +7,67 @@
 # - see Usage section below for details
 
 # %%
+
+#v2023-06-26-21:18
 import random
 
-symbols = "!@#$%^&*-+=.?~"
+delimiter="|"
+
 alpha_upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 alpha_lower = "abcdefghijklmnopqrstuvwxyz"
-digits = "0123456789"
-mixed_case = alpha_upper + alpha_lower
-anychar = mixed_case + digits + symbols
 
-print('anychar() > ', anychar)
+mixed_case = alpha_upper + alpha_lower # mixed-case is combination of alpha_upper and alpha_lower
+
+symbols = "!@#$%^&*-+=.?~"
+digits = "0123456789"
+
+anychar = mixed_case + digits + symbols # anychar is a combination of all the lists
+
+print('mixed_case -> ', mixed_case)
+print('anychar() -> ', anychar)
 
 # %%
 
 
-def getWord(type: str = "n", word_len: str = "5"):
+def getWord(this_type, this_len):
+#v2023-06-26-21:18
     types = {
-            "j": "adjs.txt",
-            "b": "advs.txt",
-            "1": "colors.txt",
-            "3": "days.txt", 
-            "2": "months.txt",
-            "n": "nouns.txt",
-            "v": "verbs.txt",
-            "w": "words.txt"
-             }
-    type = 'n' if type not in types else type
-    file = "./words/" + types[type]
-    words = open(file, "r").readlines()
+        "n":"nouns.txt", 
+        "v":"verbs.txt", 
+        "j":"adjs.txt", 
+        "b":"advs.txt", 
+        "w":"words.txt",
+        "1":"colors.txt",
+        "2":"months.txt",
+        "3":"days.txt"
+    }
+
+    this_type = 'w' if this_type not in types else this_type
+    this_len = random.choice(range(3,20)) if int(this_len) not in range(3,20) else this_len
+    this_file = "./words/" + types[this_type]
+    
+    words = open(this_file, "r").readlines()
+    
     words_list = []
+    
     for this_word in words:
-        # need to remove the \n at the end of each, but not last word in file
-        word = this_word[:-1] if '\n' in this_word else this_word
-        if type.isdigit() == False and len(word) == int(word_len):
+        #need to remove the \n at the end of each, but not last word in file
+        word = this_word[:-1] if '\n' in this_word else this_word 
+        if this_type.isdigit() == False and len(word) == int(this_len):
             words_list.append(word)
-        elif type.isdigit() == True:
+        elif this_type.isdigit() == True:
             words_list.append(word)
+
     word_pick = random.choice(words_list)
-    return (word_pick)
+    return(word_pick)
 
-
-print('getWord("1", "5") > ', getWord("1", "5"))
+# print('getWord("w","2") -> ', getWord("w","2"))
 
 # %%
 
 
 def spell_number(numeral: str = ""):
+#v2023-06-26-21:18
     n = numeral if numeral != "" else str(random.choice(range(99)))
     spelled_number = ""
 
@@ -69,12 +84,13 @@ def spell_number(numeral: str = ""):
     return (spelled_number)
 
 
-print('spell_number("0") > ', spell_number("0"))
+# print('spell_number("0") > ', spell_number("0"))
 
 # %%
 
 
 def part_num(pnum):
+#v2023-06-26-21:18
     # returns the int for the length of segment
     if len(pnum) <= 0:
         # set number to 1 if it's empty
@@ -85,11 +101,12 @@ def part_num(pnum):
     else:
         return (int(pnum))
 
-print('part_num(""), part_num("0"), part_num("99") > ', part_num(""), part_num("0"), part_num("99"))
+# print('part_num(""), part_num("0"), part_num("99") > ', part_num(""), part_num("0"), part_num("99"))
 
 # %%
 
 def change_word_case(this_word, this_case: str = ""):
+#v2023-06-26-21:18
     if this_case in "ult":
         match this_case:
             case "u":
@@ -105,64 +122,70 @@ def change_word_case(this_word, this_case: str = ""):
         return (this_word)
 
 
-print('change_word_case("heLLo", "l")', change_word_case("heLLo", "l"))
+# print('change_word_case("heLLo", "l")', change_word_case("heLLo", "l"))
 
-
+# %%
 def pwgen(pattern):
-
+#v2023-06-26-21:18
+    
     pw = ""
     try:
-        pattern_parts = [part for part in pattern.split('%')[1:]]
+        pattern_parts = [part for part in pattern.split(delimiter)[1:]]
     except:
         print('Missing pattern parameter; try "%x14"')
     else:
         for part in pattern_parts:
+            # print(part)
             match part[0]:
                 case "0":
                     # spelled number
                     if len(part) > 1:
-                        requested_number = part[1:] if part[1].isdigit(
-                        ) else part[2:]
+                        requested_number = part[1:] if part[1].isdigit() else part[2:]
                         number_case = "l" if part[1].isdigit() else part[1]
                     else:
-                        requested_number = ""  # if number is not specified; returns random
-                        number_case = "l"
-                    this_spelled_number = change_word_case(
-                        spell_number(requested_number), number_case)
+                        requested_number = "" # if number is not specified; returns random
+                        number_case = "l" 
+                    this_spelled_number = change_word_case(spell_number(requested_number), number_case)
                     pw += this_spelled_number
                 case"\\":
-                    # literal
+                    #literal
                     pw += part[1:]
-                case "a" | "A" | "M" | "m" | "s" | "d" | "x":
+                case "a"|"A"|"m"|"s"|"d"|"x":
                     # character types
-                    # TODO: make sure that there is only one letter, followed by number
-                    for i in range(part_num(part[1:])):
+                    number_portion = part[1:] if part[1].isdigit() else "1"
+                    numbers_only = ''.join(filter(str.isdigit, number_portion))
+                         
+                    for i in range(part_num(numbers_only)):
                         match part[0]:
                             case "a":
-                                # lower-alpha
+                                #lower-alpha
                                 pw += random.choice(alpha_lower)
-                            case "A":
-                                # upper-alpha
+                            case "A": 
+                                #upper-alpha
                                 pw += random.choice(alpha_upper)
                             case "m" | "M":
-                                # mixed-case alpha
+                                #mixed-case alpha
                                 pw += random.choice(mixed_case)
                             case "s":
-                                # symbol
+                                #symbol
                                 pw += random.choice(symbols)
                             case "d":
-                                # digit
+                                #digit
                                 pw += random.choice(digits)
                             case "x":
-                                # random any character
+                                #random any character
                                 pw += random.choice(anychar)
 
                 case "w" | "n" | "v" | "j" | "b" | "c":
-                    # words
-                    word_type = ""
+                    #words
+                    word_type = "w" #set default
+                    word_case = "t" #set default
+                    word_length = "0" #set default
                     if (len(part) == 1):
+                        # letter only
                         word_length = 5
                         word_case = "t"
+                        
                     elif part[1].isdigit() and part[0] != "c":
                         # if no word-case indicated
                         this_num = part[1:]
@@ -171,35 +194,33 @@ def pwgen(pattern):
                             this_num = "20"
                         word_length = int(part_num(this_num))
                         word_case = "t"
+                        
                     elif part[0] == "c":
                         # custom lists; ex. c1, c1u
-                        word_type = part[1:-
-                                         1] if part[-1].isdigit() == False else part[1]
-                        word_case = part[-1] if part[-1].isdigit() == False else "l"
-                        word_length = 0
-
+                        word_length = 0 # word_length is not used for custom lists
+                        word_case = part[-1] if part[-1].isdigit() == False else  "t" #c3u
+                        word_type = part[1:-1] if part[-1].isdigit() == False else part[1:-1] #c3u
                     else:
                         # limit to 20-char words
-                        this_num = "20" if int(part[2:]) > 20 else part[2:]
+                        this_num = "20" if part[2:] and int(part[2:]) > 20 else part[2:]
                         word_length = int(part_num(this_num))
                         word_case = part[1]
-
+                                        
                     word_type = word_type if part[0] == "c" else part[0]
+                    
+                    this_word = getWord(word_type, word_length) if part[0] != "0" else spell_number(word_length)
+                        
+                    pw += change_word_case(this_word, word_case)    
 
-                    this_word = getWord(
-                        word_type, word_length) if part[0] != "0" else spell_number(word_length)
-
-                    pw += change_word_case(this_word, word_case)
-
-    return (pw)
+    return(pw)
 
 
-# print(pwgen("%jt4%\ %nt0%\: (%cu1%\)%d3%\-%d4"))
-# print(pwgen("%nu3"))
+# print(pwgen("|jt4|\%20|nt0|\:(|c1u|\)|d3|\-|d4"))
+# print(pwgen("|nu3"))
 
 # %%
-print(pwgen("%jt4%nt0%\@%\.%d3%c1%cu2%cl3"))
-print(pwgen("%jt4%\ %nt0%\: (%0u0%\)%d3%\-%d4"))
+# print(pwgen("%jt4%nt3%\.%d3%c1%cu2%cl3"))
+# print(pwgen("%jt4%\ %nt3%\: (%0u0%\)%d3%\-%d4"))
 
 # %% [markdown]
 # ## USAGE
