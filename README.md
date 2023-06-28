@@ -1,6 +1,6 @@
 ## PWGen: Formatted Password Generator ##
 ---
-#** THIS FILE IS WAY OUTDATED**
+# ** THIS FILE IS WAY OUTDATED**
 
 #### This app has not been developed yet. ####
 - Generates password based on a user-requested format
